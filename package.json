@@ -16,6 +16,9 @@
     "ioredis": "^3.2.2",
     "kafka-node": "^2.3.2",
     "nconf": "^0.10.0",
-    "socket.io-emitter": "^3.1.1",
+    "socket.io-emitter": "^3.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.0"
   }
 }
