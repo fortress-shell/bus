@@ -3,6 +3,8 @@ const io = require('src/resources/io');
 const db = require('src/resources/mysql');
 const createAmqpConnection = require('src/resources/rabbit');
 const BusController = require('src/controlllers');
+const config = require('src/config');
+const {name, options, prefetch} = config.get('queue');
 
 (async function main() {
   try {
@@ -11,9 +13,9 @@ const BusController = require('src/controlllers');
     conn.on("close", console.error);
     const ch = await conn.createChannel();
     const bus = new BusController(io, db, ch);
-    ch.prefetch(10);
-    ch.assertQueue(q, {durable: false});
-    ch.consume(q, bus.notify.bind(bus));
+    ch.prefetch(prefetch);
+    ch.assertQueue(name, options);
+    ch.consume(name, bus.notify.bind(bus));
     async function onShutdown() {
       conn.close();
       db.close();

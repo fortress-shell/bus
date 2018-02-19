@@ -1,8 +1,8 @@
 const debug = require('debug');
-const info = debug('notifications:info');
-const warn = debug('notifications:warn');
-const log = debug('notifications:log');
-const error = debug('notifications:error');
+const info = debug('bus:info');
+const warn = debug('bus:warn');
+const log = debug('bus:log');
+const error = debug('bus:error');
 
 module.exports = {
   info,

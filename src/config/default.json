@@ -1,1 +1,9 @@
-{}
+{
+  "queue": {
+    "name": "messages",
+    "options": {
+      "durable": false
+    },
+    "prefetch": 10
+  }
+}
