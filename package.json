@@ -1,0 +1,21 @@
+{
+  "name": "logs",
+  "version": "1.0.0",
+  "description": "Log aggregator and publisher",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "dotenv": "^5.0.0",
+    "ioredis": "^3.2.2",
+    "kafka-node": "^2.3.2",
+    "nconf": "^0.10.0",
+    "socket.io-emitter": "^3.1.1",
+  }
+}
