@@ -1,6 +1,6 @@
 'use strict';
 const io = require('src/resources/io');
-const db = require('src/resources/mysql');
+const db = require('src/resources/db');
 const createAmqpConnection = require('src/resources/rabbit');
 const BusController = require('src/controlllers');
 const config = require('src/config');
