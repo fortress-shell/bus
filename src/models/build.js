@@ -5,4 +5,5 @@ module.exports = sequelize.define('log', {
   description: Sequelize.TEXT,
 }, {
   tableName: 'builds',
+  underscored: true,
 });
