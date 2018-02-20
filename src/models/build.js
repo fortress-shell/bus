@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const sequelize = require('src/resources/db');
 
 module.exports = sequelize.define('log', {
