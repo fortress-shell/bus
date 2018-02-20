@@ -1,20 +1,18 @@
 'use strict';
-const dotenv = require('dotenv');
 const nconf = require('nconf');
-const result = dotenv.config();
-if (result.error) {
-  throw result.error;
-}
 nconf.env([
   'NODE_ENV',
   'REDIS_URL',
+  'RABBIT_URL',
+  'DB_URL',
 ]);
 nconf.defaults({
   NODE_ENV: 'development',
 });
 nconf.required([
   'REDIS_URL',
-  'keyb',
+  'RABBIT_URL',
+  'DB_URL',
 ]);
 const NODE_ENV = nconf.get('NODE_ENV');
 nconf.file(NODE_ENV, {
