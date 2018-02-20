@@ -2,19 +2,23 @@
 const io = require('src/resources/io');
 const db = require('src/resources/db');
 const createAmqpConnection = require('src/resources/rabbit');
-const BusController = require('src/controlllers');
+const Builds = require('src/controllers/builds');
 const config = require('src/config');
 const {name, options, prefetch} = config.get('queue');
 
 (async function main() {
   try {
     const conn = await createAmqpConnection();
-    conn.on("error", onShutdown);
+    conn.on('error', onShutdown);
     const ch = await conn.createChannel();
-    const builds = new BusController(io, db, ch);
+    const builds = new Builds(io, db, ch);
     ch.prefetch(prefetch);
     ch.assertQueue(name, options);
     ch.consume(name, builds.updateStatus.bind(builds));
+    /**
+     * Graceful shutdown handler
+     * @param  {Error} err [description]
+     */
     async function onShutdown(err) {
       conn.close();
       db.close();
@@ -23,7 +27,7 @@ const {name, options, prefetch} = config.get('queue');
     for (const event of ['SIGINT', 'SIGTERM']) {
       process.once(event, onShutdown);
     }
-  } catch(e) {
+  } catch (e) {
       console.error(e);
       process.exit(1);
   }
