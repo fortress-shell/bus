@@ -8,15 +8,15 @@ class BuildsController {
     this.build = db.models.build;
     this.ch = ch;
   }
-  async update(message) {
+  async updateStatus(message) {
     const content = JSON.parse(message.content);
     try {
         await this.updateInDatabase(content);
         this.logToWebsocket(content);
-        ch.ack(message);
+        this.ch.ack(message);
     } catch(e) {
         logger.warn(e);
-        ch.reject(message, true);
+        this.ch.reject(message, true);
     }
   }
   async updateInDatabase(message) {

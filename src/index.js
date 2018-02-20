@@ -9,16 +9,16 @@ const {name, options, prefetch} = config.get('queue');
 (async function main() {
   try {
     const conn = await createAmqpConnection();
-    conn.on("error", console.error);
-    conn.on("close", console.error);
+    conn.on("error", onShutdown);
     const ch = await conn.createChannel();
-    const bus = new BusController(io, db, ch);
+    const builds = new BusController(io, db, ch);
     ch.prefetch(prefetch);
     ch.assertQueue(name, options);
-    ch.consume(name, bus.notify.bind(bus));
-    async function onShutdown() {
+    ch.consume(name, builds.updateStatus.bind(builds));
+    async function onShutdown(err) {
       conn.close();
       db.close();
+      process.exit(err ? 1 : 0);
     }
     for (const event of ['SIGINT', 'SIGTERM']) {
       process.once(event, onShutdown);
