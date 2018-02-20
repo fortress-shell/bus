@@ -1,9 +1,7 @@
-const Sequelize = require('sequelize');
-const sequelize = require('src/resources/db');
-
-module.exports = sequelize.define('log', {
-  title: Sequelize.STRING,
-  description: Sequelize.TEXT,
+'use strict';
+module.exports = (sequelize, DataTypes) => sequelize.define('log', {
+  title: DataTypes.STRING,
+  description: DataTypes.TEXT,
 }, {
   tableName: 'builds',
   underscored: true,

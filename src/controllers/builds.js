@@ -1,3 +1,5 @@
+const logger = require('src/utils/logger');
+
 /**
  * Builds controller
  */
@@ -17,8 +19,13 @@ class BuildsController {
    * Update status handler
    * @param  {Object} message [description]
    */
-  async updateStatus(message) {
-    const content = JSON.parse(message.content);
+  async consume(message) {
+    try {
+      const content = JSON.parse(message.content);
+    } catch (e) {
+      logger.warn(e);
+      return this.ch.reject(message, false);
+    }
     try {
         await this.updateInDatabase(content);
         this.logToWebsocket(content);

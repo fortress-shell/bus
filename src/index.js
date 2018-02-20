@@ -14,7 +14,7 @@ const {name, options, prefetch} = config.get('queue');
     const builds = new Builds(io, db, ch);
     ch.prefetch(prefetch);
     ch.assertQueue(name, options);
-    ch.consume(name, builds.updateStatus.bind(builds));
+    ch.consume(name, builds.consume.bind(builds));
     /**
      * Graceful shutdown handler
      * @param  {Error} err [description]
