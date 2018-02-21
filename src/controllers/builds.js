@@ -1,4 +1,5 @@
 const logger = require('src/utils/logger');
+const {UPDATE_BUILD} = require('src/queries/build');
 
 /**
  * Builds controller
@@ -12,7 +13,7 @@ class BuildsController {
      */
   constructor(io, db, ch) {
     this.io = io;
-    this.build = db.models.build;
+    this.db = db;
     this.ch = ch;
   }
   /**
@@ -41,8 +42,7 @@ class BuildsController {
    * @return {[type]}         [description]
    */
   async updateInDatabase(message) {
-    const build = await this.build.findById(message.buildId);
-    return build.update(content, {raw: true});
+    return this.db.none(UPDATE_BUILD, message)
   }
   /**
    * Updates status of build in UI via ws

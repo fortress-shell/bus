@@ -2,7 +2,7 @@
 const io = require('src/resources/io');
 const db = require('src/resources/db');
 const createAmqpConnection = require('src/resources/rabbit');
-const Builds = require('src/controllers/builds');
+const BuildsController = require('src/controllers/builds');
 const config = require('src/config');
 const {name, options, prefetch} = config.get('queue');
 
@@ -11,7 +11,7 @@ const {name, options, prefetch} = config.get('queue');
     const conn = await createAmqpConnection();
     conn.on('error', onShutdown);
     const ch = await conn.createChannel();
-    const builds = new Builds(io, db, ch);
+    const builds = new BuildsController(io, db, ch);
     ch.prefetch(prefetch);
     ch.assertQueue(name, options);
     ch.consume(name, builds.consume.bind(builds));
