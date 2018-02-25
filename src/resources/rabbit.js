@@ -1,13 +1,14 @@
+'use strict';
 const amqplib = require('amqplib');
-const config = require('config');
-const RABBIT_URL = config.get('RABBIT_URL');
+const config = require('src/config');
+const RABBITMQ_URL = config.get('RABBITMQ_URL');
 
 /**
  * Creates rabbitmq connection with preparead connection url
  * @return {Promise} rabbitmq connection instance
  */
 function createAmqpConnection() {
-  return amqplib.connect(RABBIT_URL);
+  return amqplib.connect(RABBITMQ_URL);
 }
 
 module.exports = createAmqpConnection;

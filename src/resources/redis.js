@@ -6,8 +6,8 @@ const sentinels = REDIS_URL.split(',');
 
 if (sentinels.length > 1) {
   module.exports = new Redis({
-    sentinels,
     name: 'fortress',
+    sentinels,
   });
 } else if (sentinels.length === 1) {
   module.exports = new Redis(REDIS_URL);

@@ -1,8 +1,8 @@
 {
   "queue": {
-    "name": "messages",
+    "name": "notifications",
     "options": {
-      "durable": false
+      "durable": true
     },
     "prefetch": 10
   }

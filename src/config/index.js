@@ -1,9 +1,10 @@
 'use strict';
 const nconf = require('nconf');
+const path = require('path');
 nconf.env([
   'NODE_ENV',
   'REDIS_URL',
-  'RABBIT_URL',
+  'RABBITMQ_URL',
   'DB_URL',
 ]);
 nconf.defaults({
@@ -11,7 +12,7 @@ nconf.defaults({
 });
 nconf.required([
   'REDIS_URL',
-  'RABBIT_URL',
+  'RABBITMQ_URL',
   'DB_URL',
 ]);
 const NODE_ENV = nconf.get('NODE_ENV');
