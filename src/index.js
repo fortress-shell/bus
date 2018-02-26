@@ -6,6 +6,9 @@ const config = require('src/config');
 const logger = require('src/utils/logger');
 const {name, options, prefetch} = config.get('queue');
 
+/**
+ * Main function
+ */
 async function main() {
   try {
     const conn = await createAmqpConnection();

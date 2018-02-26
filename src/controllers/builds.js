@@ -7,9 +7,8 @@ const logger = require('src/utils/logger');
 class BuildsController {
     /**
      * Builds constructor
-     * @param  {Object} io [description]
-     * @param  {Object} db [description]
-     * @param  {Object} ch [description]
+     * @param  {Object} io socket.io emitter
+     * @param  {Object} ch rabbitmq channel
      */
   constructor(io, ch) {
     this.io = io;
@@ -17,7 +16,7 @@ class BuildsController {
   }
   /**
    * Update status handler
-   * @param  {Object} message [description]
+   * @param  {Object} message rabbitmq message object
    */
   async consume(message) {
     const content = JSON.parse(message.content);

@@ -5,7 +5,7 @@ nconf.env([
   'NODE_ENV',
   'REDIS_URL',
   'RABBITMQ_URL',
-  'DB_URL',
+  'DATABASE_URL',
 ]);
 nconf.defaults({
   NODE_ENV: 'development',
@@ -13,7 +13,7 @@ nconf.defaults({
 nconf.required([
   'REDIS_URL',
   'RABBITMQ_URL',
-  'DB_URL',
+  'DATABASE_URL',
 ]);
 const NODE_ENV = nconf.get('NODE_ENV');
 nconf.file(NODE_ENV, {
