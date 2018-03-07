@@ -4,7 +4,7 @@
   "description": "Log aggregator and publisher",
   "main": "src/index.js",
   "scripts": {
-    "start": "node -r dotenv/config .",
+    "start": "node .",
     "test": "echo \"Error: no test specified\"",
     "pretest": "eslint ."
   },
@@ -14,7 +14,6 @@
   "dependencies": {
     "amqplib": "^0.5.2",
     "debug": "^3.1.0",
-    "dotenv": "^5.0.0",
     "ioredis": "^3.2.2",
     "nconf": "^0.10.0",
     "socket.io-emitter": "^3.1.1"

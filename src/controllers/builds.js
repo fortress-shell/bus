@@ -19,11 +19,11 @@ class BuildsController {
    * @param  {Object} message rabbitmq message object
    */
   async consume(message) {
-    const content = JSON.parse(message.content);
+    const event = JSON.parse(message.content);
     try {
-        this.io.to(content.roomId).emit(content);
+        this.io.to(event.room_id).emit(`${event.source}:${event.type}`, event);
         this.ch.ack(message);
-        logger.info(content);
+        logger.info(event);
     } catch (e) {
         logger.warn(e);
         this.ch.reject(message, true);
