@@ -12,5 +12,5 @@ if (sentinels.length > 1) {
 } else if (sentinels.length === 1) {
   module.exports = new Redis(REDIS_URL);
 } else {
-  throw new TypeError('Specify REDIS_URL env!');
+  throw new TypeError('REDIS_URL!');
 }

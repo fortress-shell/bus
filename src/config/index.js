@@ -2,6 +2,8 @@
 const nconf = require('nconf');
 const path = require('path');
 nconf.env([
+  'BASE_URL',
+  'API_TOKEN',
   'NODE_ENV',
   'REDIS_URL',
   'RABBITMQ_URL',
@@ -11,6 +13,9 @@ nconf.defaults({
   NODE_ENV: 'development',
 });
 nconf.required([
+  'BASE_URL',
+  'API_TOKEN',
+  'API_URL',
   'REDIS_URL',
   'RABBITMQ_URL',
   'DATABASE_URL',

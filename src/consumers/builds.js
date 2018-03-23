@@ -1,18 +1,21 @@
 'use strict';
 const logger = require('src/utils/logger');
+const Consumer = require('./consumer');
+const ALLOCATIONS = '/api/allocations';
 
 /**
  * Builds controller
  */
-class BuildsController {
+class BuildsConsumer extends Consumer {
     /**
      * Builds constructor
      * @param  {Object} io socket.io emitter
      * @param  {Object} ch rabbitmq channel
      */
-  constructor(io, ch) {
+  constructor(io, api, amqp, options, queueName, prefetchCount) {
+    super(amqp, options, queueName, prefetchCount);
     this.io = io;
-    this.ch = ch;
+    this.api = api;
   }
   /**
    * Update status handler
@@ -21,8 +24,9 @@ class BuildsController {
   async consume(message) {
     const event = JSON.parse(message.content);
     try {
-        this.io.to(event.room_id).emit(`${event.source}:${event.type}`, event);
+        const {data} = await this.api.post(ALLOCATIONS, event);
         this.ch.ack(message);
+        this.io.to(data.room_id).emit(`allocation:${data.type}`, data.event);
         logger.info(event);
     } catch (e) {
         logger.warn(e);
@@ -31,4 +35,4 @@ class BuildsController {
   }
 }
 
-module.exports = BuildsController;
+module.exports = BuildsConsumer;
