@@ -1,25 +1,22 @@
 'use strict';
 const nconf = require('nconf');
 const path = require('path');
-nconf.env([
-  'BASE_URL',
-  'API_TOKEN',
+
+const optional = [
   'NODE_ENV',
-  'REDIS_URL',
-  'RABBITMQ_URL',
-  'DATABASE_URL',
-]);
-nconf.defaults({
-  NODE_ENV: 'development',
-});
-nconf.required([
-  'BASE_URL',
+];
+const required = [
   'API_TOKEN',
-  'API_URL',
   'REDIS_URL',
   'RABBITMQ_URL',
   'DATABASE_URL',
-]);
+];
+const defaults = {
+  NODE_ENV: 'development',
+};
+nconf.env(optional.concat(required));
+nconf.defaults(defaults);
+nconf.required(required);
 const NODE_ENV = nconf.get('NODE_ENV');
 nconf.file(NODE_ENV, {
   file: path.join(__dirname, `${NODE_ENV}.json`),

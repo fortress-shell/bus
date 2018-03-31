@@ -1,9 +1,21 @@
 {
-  "queue": {
-    "name": "notifications",
-    "options": {
-      "durable": true
+  "queues": {
+    "events": {
+      "name": "events",
+      "options": {
+        "durable": true
+      },
+      "prefetch": 100
     },
-    "prefetch": 10
+    "builds": {
+      "name": "builds",
+      "options": {
+        "durable": true
+      },
+      "prefetch": 100
+    }
+  },
+  "api": {
+    "url": "http://fortress.sh"
   }
 }

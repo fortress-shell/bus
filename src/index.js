@@ -1,31 +1,26 @@
 'use strict';
+const Promise = require('bluebird');
+const config = require('src/config');
+const api = require('src/resources/api');
 const io = require('src/resources/io');
 const createAmqpConnection = require('src/resources/rabbit');
 const BuildsConsumer = require('src/consumers/builds');
-const config = require('src/config');
+const EventsConsumer = require('src/consumers/events');
 const logger = require('src/utils/logger');
-const EVENTS_QUEUE = config.get('EVENTS_QUEUE');
-const BUILDS_QUEUE = config.get('BUILDS_QUEUE');
-const EVENTS_PREFETCH = parseInt(config.get('EVENTS_PREFETCH'));
-const BUILDS_PREFETCH = parseInt(config.get('BUILDS_PREFETCH'));
-const api = require('src/resources/api');
-const Promise = require('bluebird');
-const OPTS = {
-  durable: true,
-  autoDelete: false,
-};
 
 /**
  * Main function
  */
 async function main() {
+  const eventsQueueOptions = config.get('queues:events');
+  const buildsQueueOptions = config.get('queues:builds');
   try {
     const amqp = await createAmqpConnection();
     amqp.on('error', onShutdown);
 
     await Promise.all([
-        new BuildsConsumer(io, api, amqp, OPTS, BUILDS_QUEUE, BUILDS_PREFETCH),
-        new EventsConsumer(io, amqp, OPTS, EVENTS_QUEUE, EVENTS_PREFETCH),
+        new BuildsConsumer(io, api, amqp, eventsQueueOptions),
+        new EventsConsumer(io, amqp, buildsQueueOptions),
       ])
       .map(consumer => consumer.listen());
 
