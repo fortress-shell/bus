@@ -4,7 +4,7 @@
   "description": "Log aggregator and publisher",
   "main": "src/index.js",
   "scripts": {
-    "dev": "cross-env DEBUG=bus:* NODE_PATH=. node .",
+    "dev": "cross-env DEBUG=bus:* NODE_PATH=. nodemon",
     "test": "echo \"Error: no test specified\"",
     "pretest": "eslint ."
   },
