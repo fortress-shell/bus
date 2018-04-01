@@ -1,14 +1,14 @@
 {
   "queues": {
-    "events": {
-      "name": "events",
+    "messages": {
+      "name": "messages",
       "options": {
         "durable": true
       },
       "prefetch": 100
     },
-    "builds": {
-      "name": "builds",
+    "nomad-firehose": {
+      "name": "nomad-firehose",
       "options": {
         "durable": true
       },

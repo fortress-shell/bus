@@ -5,14 +5,14 @@ const Consumer = require('./consumer');
 /**
  * Builds consumer
  */
-class EventsConsumer extends Consumer {
+class MessageBus extends Consumer {
   /**
    * Builds constructor
    * @param  {Object} io socket.io emitter
    * @param  {Object} ch rabbitmq channel
    */
-  constructor(io, amqp, options, queueName, prefetchCount) {
-    super(amqp, options, queueName, prefetchCount);
+  constructor(io, amqp, options) {
+    super(amqp, options);
     this.io = io;
   }
   /**
@@ -21,9 +21,10 @@ class EventsConsumer extends Consumer {
    */
   async consume(message) {
     const event = JSON.parse(message.content);
-    this.io.to(event.room_id).emit(`${event.source}:${event.type}`, event);
     logger.info(event);
+    this.io.to(event.user_id).emit(event.type, event.payload);
+    this.ch.ack(message);
   }
 }
 
-module.exports = BuildsConsumer;
+module.exports = MessageBus;

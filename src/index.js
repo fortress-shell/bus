@@ -4,23 +4,23 @@ const config = require('src/config');
 const api = require('src/resources/api');
 const io = require('src/resources/io');
 const createAmqpConnection = require('src/resources/rabbit');
-const BuildsConsumer = require('src/consumers/builds');
-const EventsConsumer = require('src/consumers/events');
+const NomadFirehose = require('src/components/nomad-firehose');
+const MessageBus = require('src/components/message-bus');
 const logger = require('src/utils/logger');
 
 /**
  * Main function
  */
 async function main() {
-  const eventsQueueOptions = config.get('queues:events');
-  const buildsQueueOptions = config.get('queues:builds');
+  const nomadFirehoseOptions = config.get('queues:nomad-firehose');
+  const messageBusOptions = config.get('queues:messages');
   try {
     const amqp = await createAmqpConnection();
     amqp.on('error', onShutdown);
 
     await Promise.all([
-        new BuildsConsumer(io, api, amqp, eventsQueueOptions),
-        new EventsConsumer(io, amqp, buildsQueueOptions),
+        new NomadFirehose(io, api, amqp, nomadFirehoseOptions),
+        new MessageBus(io, amqp, messageBusOptions),
       ])
       .map(consumer => consumer.listen());
 

@@ -12,21 +12,21 @@ class Consumer {
    * @param  {[type]} prefetchCount [description]
    * @return {[type]}               [description]
    */
-  constructor(amqp, options, queueName, prefetchCount) {
+  constructor(amqp, options) {
     this.amqp = amqp;
     this.options = options;
-    this.queueName = queueName;
-    this.prefetchCount = prefetchCount;
   }
   /**
    * [promise description]
    * @return {[type]} [description]
    */
   async listen() {
-    this.ch = await this.amqp.createChannel();
-    ch.prefetch(this.prefetchCount);
-    await ch.assertQueue(this.queueName, this.options),
-    ch.consume(this.queueName, this.consume.bind(this));
+    const { options, name, prefetch } = this.options;
+    const ch = await this.amqp.createChannel();
+    ch.prefetch(prefetch);
+    await ch.assertQueue(name, options),
+    ch.consume(name, this.consume.bind(this));
+    this.ch = ch;
   }
 }
 
