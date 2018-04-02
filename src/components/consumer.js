@@ -5,23 +5,20 @@
  */
 class Consumer {
   /**
-   * [constructor description]
-   * @param  {[type]} conn          [description]
-   * @param  {[type]} options       [description]
-   * @param  {[type]} queueName     [description]
-   * @param  {[type]} prefetchCount [description]
-   * @return {[type]}               [description]
+   * Abstract class for all consumers
+   * @param  {Object} amqp    amqp connection
+   * @param  {Object} options options
    */
   constructor(amqp, options) {
     this.amqp = amqp;
     this.options = options;
+    this.ch = null;
   }
   /**
-   * [promise description]
-   * @return {[type]} [description]
+   * Initialized consumer with channel
    */
   async listen() {
-    const { options, name, prefetch } = this.options;
+    const {options, name, prefetch} = this.options;
     const ch = await this.amqp.createChannel();
     ch.prefetch(prefetch);
     await ch.assertQueue(name, options),

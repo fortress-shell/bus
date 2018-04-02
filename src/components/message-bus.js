@@ -9,7 +9,8 @@ class MessageBus extends Consumer {
   /**
    * Builds constructor
    * @param  {Object} io socket.io emitter
-   * @param  {Object} ch rabbitmq channel
+   * @param  {Object} amqp rabbit connection
+   * @param  {Object} options rabbitmq channel
    */
   constructor(io, amqp, options) {
     super(amqp, options);
@@ -22,7 +23,8 @@ class MessageBus extends Consumer {
   async consume(message) {
     const event = JSON.parse(message.content);
     logger.info(event);
-    this.io.to(event.user_id).emit(event.type, event.payload);
+    this.io.to(event.user_id)
+      .emit(`builds:${event.project_id}:new`, event);
     this.ch.ack(message);
   }
 }

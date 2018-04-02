@@ -22,7 +22,7 @@ async function main() {
         new NomadFirehose(io, api, amqp, nomadFirehoseOptions),
         new MessageBus(io, amqp, messageBusOptions),
       ])
-      .map(consumer => consumer.listen());
+      .map((consumer) => consumer.listen());
 
     process.once('SIGINT', onShutdown.bind(undefined, amqp));
   } catch (e) {
@@ -33,6 +33,7 @@ async function main() {
 
 /**
  * Graceful shutdown handler
+ * @param  {Object} amqp amqp connection
  * @param  {Error} err reason
  */
 async function onShutdown(amqp, err) {
