@@ -31,7 +31,7 @@ class NomadFirehose extends Consumer {
     try {
       const {data} = await api.post('/v1/results', event);
       if (!data) {
-        throw new Error('Skipped no content');
+        return ch.ack(message);
       }
       io.to(`user:${data.build.user_id}`)
         .emit(`builds:${data.build.id}:update`, data.build);
