@@ -27,19 +27,22 @@ class NomadFirehose extends Consumer {
   async consume(message) {
     const {ch, io, api} = this;
     const event = JSON.parse(message.content);
-    logger.info(event);
+    logger.warn(event.TaskEvent.Type);
     try {
       const {data} = await api.post('/v1/results', event);
-      if (!data) {
-        return logger.log('Event not exists', event);
+      if (!data.build) {
+        return ch.ack(message);
       }
-      io.to(`user:${data.user_id}`)
-        .emit(`build:${data.build_id}:update`, data);
-      ch.ack(message);
+      io.to(`user:${data.build.user_id}`)
+        .emit(`builds:${data.build.id}:update`, data.build);
     } catch (e) {
-        logger.warn(e);
-        ch.reject(message, true);
+        if (e.response.status === 404) {
+          logger.warn('job not found');
+        } else {
+          logger.warn('server error found', e.response.status);
+        }
     }
+    ch.ack(message);
   }
 }
 

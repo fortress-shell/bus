@@ -12,7 +12,7 @@
       "options": {
         "durable": true
       },
-      "prefetch": 100
+      "prefetch": 1
     }
   },
   "api": {

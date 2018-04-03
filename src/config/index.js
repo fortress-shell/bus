@@ -6,10 +6,8 @@ const optional = [
   'NODE_ENV',
 ];
 const required = [
-  'API_TOKEN',
   'REDIS_URL',
   'RABBITMQ_URL',
-  'DATABASE_URL',
 ];
 const defaults = {
   NODE_ENV: 'development',

@@ -23,8 +23,8 @@ class MessageBus extends Consumer {
    */
   async consume(message) {
     const event = JSON.parse(message.content);
-    logger.info(event);
-    this.io.to(event.user_id)
+    logger.info('uuifuck', event);
+    this.io.to(`user:${event.user_id}`)
       .emit(`builds:${event.project_id}:new`, event);
     this.ch.ack(message);
   }
