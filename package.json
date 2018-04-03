@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "cross-env DEBUG=bus:* NODE_PATH=. nodemon",
-    "test": "cross-env NODE_PATH=$PWD NODE_ENV=testing mocha",
+    "test": "cross-env NODE_PATH=. NODE_ENV=testing nyc mocha",
     "pretest": "eslint ."
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "debug": "^3.1.0",
     "ioredis": "^3.2.2",
     "nconf": "^0.10.0",
+    "nyc": "^11.6.0",
     "sinon": "^4.2.2",
     "socket.io-emitter": "^3.1.1"
   },
