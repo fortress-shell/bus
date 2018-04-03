@@ -1,6 +1,6 @@
 'use strict';
 const logger = require('src/utils/logger');
-const Consumer = require('./consumer');
+const Consumer = require('src/components/consumer');
 
 /**
  * Builds consumer
