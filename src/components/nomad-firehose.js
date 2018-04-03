@@ -27,7 +27,7 @@ class NomadFirehose extends Consumer {
   async consume(message) {
     const {ch, io, api} = this;
     const event = JSON.parse(message.content);
-    logger.warn(event.TaskEvent.Type);
+    logger.warn(event.JobId, event.TaskEvent.Type);
     try {
       const {data} = await api.post('/v1/results', event);
       if (!data.build) {
