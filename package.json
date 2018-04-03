@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "cross-env DEBUG=bus:* NODE_PATH=. nodemon",
-    "test": "echo \"Error: no test specified\"",
+    "test": "cross-env NODE_PATH=$PWD NODE_ENV=testing mocha",
     "pretest": "eslint ."
   },
   "keywords": [],
@@ -15,9 +15,11 @@
     "amqplib": "^0.5.2",
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
+    "chai": "^4.1.2",
     "debug": "^3.1.0",
     "ioredis": "^3.2.2",
     "nconf": "^0.10.0",
+    "sinon": "^4.2.2",
     "socket.io-emitter": "^3.1.1"
   },
   "devDependencies": {

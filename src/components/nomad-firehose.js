@@ -12,9 +12,10 @@ class NomadFirehose extends Consumer {
    * @param  {Object} api rails server api for results of builds
    * @param  {Object} amqp rabbitmq channel
    * @param  {Object} options rabbitmq options
+   * @param  {Object} ch rabbitmq channel
    */
-  constructor(io, api, amqp, options) {
-    super(amqp, options);
+  constructor(io, api, amqp, options, ch) {
+    super(amqp, options, ch);
     this.io = io;
     this.api = api;
   }

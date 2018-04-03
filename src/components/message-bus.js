@@ -10,10 +10,11 @@ class MessageBus extends Consumer {
    * Builds constructor
    * @param  {Object} io socket.io emitter
    * @param  {Object} amqp rabbit connection
-   * @param  {Object} options rabbitmq channel
+   * @param  {Object} options rabbitmq options
+   * @param  {Object} ch rabbitmq channel
    */
-  constructor(io, amqp, options) {
-    super(amqp, options);
+  constructor(io, amqp, options, ch) {
+    super(amqp, options, ch);
     this.io = io;
   }
   /**

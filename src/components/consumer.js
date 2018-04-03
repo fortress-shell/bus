@@ -8,11 +8,12 @@ class Consumer {
    * Abstract class for all consumers
    * @param  {Object} amqp    amqp connection
    * @param  {Object} options options
+   * @param  {Object} ch rabbitmq channel
    */
-  constructor(amqp, options) {
+  constructor(amqp, options, ch = null) {
     this.amqp = amqp;
     this.options = options;
-    this.ch = null;
+    this.ch = ch;
   }
   /**
    * Initialized consumer with channel
