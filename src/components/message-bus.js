@@ -1,5 +1,4 @@
 'use strict';
-const logger = require('src/utils/logger');
 const Consumer = require('src/components/consumer');
 
 /**
