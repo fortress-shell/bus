@@ -12,11 +12,11 @@
       "options": {
         "durable": true
       },
-      "prefetch": 100
+      "prefetch": 1
     }
   },
   "api": {
     "timeout": 5000,
-    "url": "http://fortress.sh"
+    "url": "http://rpc.fortress.sh"
   }
 }

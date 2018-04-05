@@ -1,6 +1,5 @@
 'use strict';
-const logger = require('src/utils/logger');
-const Consumer = require('./consumer');
+const Consumer = require('src/components/consumer');
 
 /**
  * Builds consumer
@@ -10,10 +9,11 @@ class MessageBus extends Consumer {
    * Builds constructor
    * @param  {Object} io socket.io emitter
    * @param  {Object} amqp rabbit connection
-   * @param  {Object} options rabbitmq channel
+   * @param  {Object} options rabbitmq options
+   * @param  {Object} ch rabbitmq channel
    */
-  constructor(io, amqp, options) {
-    super(amqp, options);
+  constructor(io, amqp, options, ch) {
+    super(amqp, options, ch);
     this.io = io;
   }
   /**
@@ -22,8 +22,7 @@ class MessageBus extends Consumer {
    */
   async consume(message) {
     const event = JSON.parse(message.content);
-    logger.info(event);
-    this.io.to(event.user_id)
+    this.io.to(`user:${event.user_id}`)
       .emit(`builds:${event.project_id}:new`, event);
     this.ch.ack(message);
   }
