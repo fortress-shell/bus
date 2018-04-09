@@ -1,0 +1,6 @@
+.env
+.git
+.gitignore
+coverage
+.nyc_output
+test/
