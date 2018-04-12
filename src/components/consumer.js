@@ -20,11 +20,12 @@ class Consumer {
    */
   async listen() {
     const {options, name, prefetch} = this.options;
-    const ch = await this.amqp.createChannel();
+    this.ch = await this.amqp.createChannel();
     ch.prefetch(prefetch);
-    await ch.assertQueue(name, options),
-    ch.consume(name, this.consume.bind(this));
-    this.ch = ch;
+    await this.ch.assertExchange(name);
+    await this.ch.assertQueue(name, options);
+    await this.ch.bindQueue(name, name, name);
+    await this.ch.consume(name, this.consume.bind(this));
   }
 }
 

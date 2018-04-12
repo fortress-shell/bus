@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env DEBUG=bus:* NODE_PATH=. nodemon",
     "test": "cross-env NODE_PATH=. NODE_ENV=testing nyc mocha",
-    "pretest": "eslint ."
+    "pretest": "npm run lint",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "Mikhail Faraponov",
